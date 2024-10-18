@@ -22,5 +22,16 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3 (horizontalInput, verticalInput, 0);
 
         transform.Translate(direction * _speed * Time.deltaTime);
+
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4, 0), 0);
+
+        if (transform.position.x >= 10f)
+        {
+            transform.position = new Vector3(-10f, transform.position.y, 0);
+        }
+        else if (transform.position.x < -10f)
+        {
+            transform.position = new Vector3(10f, transform.position.y, 0);
+        }
     }
 }
