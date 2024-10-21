@@ -8,10 +8,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _minX = -9.5f;
     [SerializeField] private float _maxX = 9.5f;
 
+    private Player _player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -34,7 +36,11 @@ public class Enemy : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
+            if (_player != null)
+            {
+                Destroy(this.gameObject);
+                _player.Damage();
+            }
         }
 
         // IF other equals Laser tag
