@@ -21,11 +21,11 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        /*if (transform.position.y <= -6f)
+        if (transform.position.y <= -6f)
         {
             float randomX = Random.Range(_minX, _maxX);
             transform.position = new Vector3(randomX, 8f, 0);
-        }*/
+        }
     }
 
     private void OnTriggerEnter(Collider other)
