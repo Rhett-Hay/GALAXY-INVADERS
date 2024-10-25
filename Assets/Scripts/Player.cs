@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
         {
             if (_isTripleShotActive)
             {
+                TripleShotActive();
                 Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
             }
             else
@@ -89,5 +90,20 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log("Player hit!");
+    }
+
+    public void TripleShotActive()
+    {
+        // Set Triple shot to True
+        // Start the power down coroutine for 5 seconds
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        // Wait 5 seconds, then Triple shot to False
+        yield return new WaitForSeconds(5f);
+        _isTripleShotActive = false;
     }
 }
