@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int _lives = 3;
 
     private SpawnManager _spawnManager;
-    [SerializeField] private bool _isTripleShotActive = false;
+    private bool _isTripleShotActive = false;
+    private bool _isSpeedBoostActive = false;
     [SerializeField] GameObject _tripleShotPrefab;
     private bool _fireLaser = true;
 
@@ -105,5 +106,17 @@ public class Player : MonoBehaviour
         // Wait 5 seconds, then Triple shot to False
         yield return new WaitForSeconds(5f);
         _isTripleShotActive = false;
+    }
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSpeedBoostActive = false;
     }
 }

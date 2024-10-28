@@ -289,8 +289,9 @@ MonoBehaviour:
     type: 3}
   _Xpos: 9.5
   _enemyContainer: {fileID: 1178419682}
-  _tripleShotPowerupPrefab: {fileID: 3941853413015898642, guid: 7add6322d154f754f941c0befdd28695,
-    type: 3}
+  _powerupPrefabs:
+  - {fileID: 3941853413015898642, guid: 7add6322d154f754f941c0befdd28695, type: 3}
+  - {fileID: 9193530918560242177, guid: 2bec52422de47884e91c46fe3c113535, type: 3}
 --- !u!1 &777714963
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +675,6 @@ MonoBehaviour:
   _canFire: -1
   _fireRate: 0.15
   _lives: 3
-  _isTripleShotActive: 0
   _tripleShotPrefab: {fileID: 6145675626078897238, guid: fc2b071eb14c4c84d953e9aba25e7429,
     type: 3}
 --- !u!212 &1584299802
