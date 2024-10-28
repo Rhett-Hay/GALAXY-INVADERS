@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
+    private bool _isShieldActive = false;
     [SerializeField] GameObject _tripleShotPrefab;
     private bool _fireLaser = true;
 
@@ -121,5 +122,17 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _isSpeedBoostActive = false;
         _speed /= _speedMultiplier;
+    }
+
+    public void ShieldActive()
+    {
+        _isShieldActive = true;
+        StartCoroutine(ShieldPowerDownRoutine());
+    }
+
+    IEnumerator ShieldPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isShieldActive = false;
     }
 }
