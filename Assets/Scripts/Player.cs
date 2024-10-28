@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed = 3.5f;
+    [SerializeField] private float _speedMultiplier = 2f;
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private float _fireRate = 0.3f;
@@ -111,6 +112,7 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
+        _speed *= _speedMultiplier;
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
 
@@ -118,5 +120,6 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _isSpeedBoostActive = false;
+        _speed /= _speedMultiplier;
     }
 }
