@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8938109618250500121}
   - component: {fileID: 7726525892118935623}
   - component: {fileID: 280083340232494133}
+  - component: {fileID: 7174918951985003859}
   m_Layer: 0
   m_Name: Speed_Powerup
   m_TagString: Untagged
@@ -173,3 +174,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3.5
   _powerupID: 1
+--- !u!95 &7174918951985003859
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9193530918560242177}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 23a8f2b3cec1c734db085714a02674d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
