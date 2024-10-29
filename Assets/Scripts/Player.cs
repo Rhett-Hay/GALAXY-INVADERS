@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private float _fireRate = 0.3f;
     [SerializeField] private int _lives = 3;
+    [SerializeField] private int _score;
+    [SerializeField] private UIManager _uiManager;
 
     private SpawnManager _spawnManager;
     private bool _isTripleShotActive = false;
@@ -30,6 +32,12 @@ public class Player : MonoBehaviour
         if (_spawnManager == null)
         {
             Debug.LogError("Spawn Manager is NULL!");
+        }
+
+        _uiManager = GameObject.FindObjectOfType<UIManager>().GetComponent<UIManager>();
+        if (_uiManager == null)
+        {
+            Debug.Log("UI Manager is NULL!");
         }
     }
 
@@ -87,7 +95,6 @@ public class Player : MonoBehaviour
     {
         if (_isShieldActive)
         {
-            _isShieldActive = false;
             return;
         }
 
@@ -143,5 +150,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _isShieldActive = false;
         _shieldPrefab.SetActive(false);
+    }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
     }
 }

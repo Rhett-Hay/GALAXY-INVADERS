@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speed = 4f;
     [SerializeField] private float _minX = -9.5f;
     [SerializeField] private float _maxX = 9.5f;
+    [SerializeField] private int _enemyPoints;
 
     private Player _player;
 
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
             if (_player != null)
             {
                 Destroy(this.gameObject);
+                _player.AddScore(_enemyPoints);
                 _player.Damage();
             }
         }
@@ -44,6 +46,11 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
+
+            if (_player != null)
+            {
+                _player.AddScore(_enemyPoints);
+            }
             Destroy(this.gameObject);
         }
     }

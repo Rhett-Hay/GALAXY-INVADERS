@@ -50,6 +50,7 @@ MonoBehaviour:
   _speed: 3
   _minX: -9.5
   _maxX: 9.5
+  _enemyPoints: 20
 --- !u!212 &5334891373849398978
 SpriteRenderer:
   m_ObjectHideFlags: 0
