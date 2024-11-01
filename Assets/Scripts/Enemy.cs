@@ -10,11 +10,36 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _enemyPoints;
 
     private Player _player;
+    private Animator _anim;
+    private Collider2D _collider;
+    private Enemy _enemy;
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL!");
+        }
+
+        _anim = GetComponent<Animator>();
+        if (_anim == null)
+        {
+            Debug.LogError("Animator is NULL!");
+        }
+
+        _enemy = GetComponent<Enemy>();
+        if (_enemy == null)
+        {
+            Debug.LogError("Enemy script component is NULL!");
+        }
+
+        _collider = GetComponent<Collider2D>();
+        if (_collider == null)
+        {
+            Debug.LogError("Collider is NULL!");
+        }
     }
 
     // Update is called once per frame
@@ -36,10 +61,14 @@ public class Enemy : MonoBehaviour
         {
             if (_player != null)
             {
-                Destroy(this.gameObject);
-                _player.AddScore(_enemyPoints);
                 _player.Damage();
             }
+
+            _anim.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            
+            Destroy(this.gameObject, 2.35f);
+            _player.AddScore(_enemyPoints);
         }
 
         
@@ -51,7 +80,12 @@ public class Enemy : MonoBehaviour
             {
                 _player.AddScore(_enemyPoints);
             }
-            Destroy(this.gameObject);
+
+            _anim.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            Destroy(_enemy);
+            Destroy(_collider);
+            Destroy(this.gameObject, 2.35f);
         }
     }
 }
