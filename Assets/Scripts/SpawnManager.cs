@@ -11,19 +11,6 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(SpawnEnemyRoutine());
-        StartCoroutine(SpawnPowerupRoutine());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator SpawnEnemyRoutine()
     {
         yield return new WaitForSeconds(2f);
@@ -55,5 +42,11 @@ public class SpawnManager : MonoBehaviour
     public void OnPlayerDeath()
     {
         _stopSpawning = true;
+    }
+
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 }
