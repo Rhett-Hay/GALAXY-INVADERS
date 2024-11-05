@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _shieldPrefab;
     [SerializeField] GameObject _tripleShotPrefab;
     private bool _fireLaser = true;
+    [SerializeField] private GameObject _leftEngine;
+    [SerializeField] private GameObject _rightEngine;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +102,15 @@ public class Player : MonoBehaviour
 
         _lives -= 1;
         _uiManager.UpdateLives(_lives);
+
+        if (_lives == 2)
+        {
+            _rightEngine.SetActive(true);
+        }
+        else if (_lives == 1)
+        {
+            _leftEngine.SetActive(true);
+        }
 
         if (_lives < 1)
         {
