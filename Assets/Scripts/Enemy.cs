@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private Animator _anim;
     private Collider2D _collider;
     private Enemy _enemy;
+    private AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,12 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("Collider is NULL!");
         }
+
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            Debug.LogError("Audio Source is NULL!");
+        }
     }
 
     // Update is called once per frame
@@ -47,7 +54,7 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        if (transform.position.y <= -6f)
+        if (transform.position.y <= -7f)
         {
             float randomX = Random.Range(_minX, _maxX);
             transform.position = new Vector3(randomX, 8f, 0);
@@ -66,7 +73,7 @@ public class Enemy : MonoBehaviour
 
             _anim.SetTrigger("OnEnemyDeath");
             _speed = 0;
-            
+            _audioSource.Play();
             Destroy(this.gameObject, 2.35f);
             _player.AddScore(_enemyPoints);
         }
@@ -83,6 +90,7 @@ public class Enemy : MonoBehaviour
 
             _anim.SetTrigger("OnEnemyDeath");
             _speed = 0;
+            _audioSource.Play();
             Destroy(_enemy);
             Destroy(_collider);
             Destroy(this.gameObject, 2.35f);
