@@ -53,6 +53,10 @@ MonoBehaviour:
   _minX: -9.5
   _maxX: 9.5
   _enemyPoints: 20
+  _minFireRate: 3
+  _maxFireRate: 7
+  _enemyLaserPrefab: {fileID: 3428019975785924593, guid: 63ef03066ca095844bcbcb6fa0ad4b6a,
+    type: 3}
 --- !u!212 &5334891373849398978
 SpriteRenderer:
   m_ObjectHideFlags: 0
