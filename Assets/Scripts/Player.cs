@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _lives = 3;
     [SerializeField] private int _score;
     [SerializeField] private UIManager _uiManager;
+    [SerializeField] private float _maxBoundary;
 
     private SpawnManager _spawnManager;
     private bool _isTripleShotActive = false;
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour
 
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4f, 0), 0);
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, _maxBoundary, 0), 0);
 
         if (transform.position.x >= 10f)
         {
