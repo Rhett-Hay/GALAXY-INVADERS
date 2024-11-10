@@ -70,8 +70,9 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? _speedMultiplier * _speed : _speed;
 
-        transform.Translate(direction * _speed * Time.deltaTime);
+        transform.Translate(direction * currentSpeed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, _maxBoundary, 0), 0);
 
@@ -151,7 +152,7 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
-        _speed *= _speedMultiplier;
+        _speed *= _speedMultiplier * 1.5f;
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
 
