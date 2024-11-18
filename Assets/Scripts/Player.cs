@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -27,10 +29,24 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField] GameObject _playerExplosionPreb;
 
+    [SerializeField] private float _thrusterDuration = 5.0f;
+    [SerializeField] private float _thrusterCoolDown = 5f;
+    [SerializeField] private Slider _thrusterSlider;
+    private float _thrusterTimer;
+    private float _coolDownTimer;
+    private bool _isThrusterActive = false;
+    private bool _onCoolDown = false;
+    [SerializeField] private float _currentSpeed;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        // starting position of the player when the game starts.
+        _currentSpeed = _speed;
+        _thrusterTimer = _thrusterDuration;
+        _thrusterSlider.maxValue = _thrusterDuration;
+        _thrusterSlider.value = _thrusterDuration;
+
         transform.position = new Vector3(0, -3, 0);
 
         _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
@@ -41,6 +57,7 @@ public class Player : MonoBehaviour
         }
 
         _uiManager = GameObject.FindObjectOfType<UIManager>().GetComponent<UIManager>();
+        
         if (_uiManager == null)
         {
             Debug.Log("UI Manager is NULL!");
@@ -57,6 +74,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        CalculateBoost();
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -70,10 +88,8 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? _speedMultiplier * _speed : _speed;
-
-        transform.Translate(direction * currentSpeed * Time.deltaTime);
-
+        transform.Translate(direction * _currentSpeed * Time.deltaTime);
+        
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, _maxBoundary, 0), 0);
 
         if (transform.position.x >= 10f)
@@ -84,6 +100,51 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(10f, transform.position.y, 0);
         }
+    }
+
+    private void CalculateBoost()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) &&  _thrusterTimer > 0f && !_onCoolDown)
+        {
+            _isThrusterActive = true;
+            _currentSpeed = _speed * _speedMultiplier;
+
+            _thrusterTimer -= Time.deltaTime;
+            _thrusterTimer = Mathf.Clamp(_thrusterTimer, 0f, _thrusterDuration);
+            _thrusterSlider.value = _thrusterTimer;
+
+            if (_thrusterTimer <= 0f)
+            {
+                StartCoolDown();
+            }
+        }
+        else
+        {
+            _isThrusterActive = false;
+            _currentSpeed = _speed;
+
+            if (!_onCoolDown && _thrusterTimer < _thrusterDuration)
+            {
+                _thrusterTimer += Time.deltaTime;
+                _thrusterTimer = Mathf.Clamp(_thrusterTimer, 0f, _thrusterDuration);
+                _thrusterSlider.value = _thrusterTimer;
+            }
+        }
+
+        if (_onCoolDown)
+        {
+            _coolDownTimer -= Time.deltaTime;
+            if (_coolDownTimer <= 0f)
+            {
+                _onCoolDown = false;
+            }
+        }
+    }
+
+    private void StartCoolDown()
+    {
+        _onCoolDown = true;
+        _coolDownTimer = _thrusterCoolDown;
     }
 
     void FireLaser()
@@ -115,7 +176,6 @@ public class Player : MonoBehaviour
         }
 
         _lives -= 1;
-        _uiManager.UpdateLives(_lives);
 
         if (_lives == 2)
         {
@@ -125,6 +185,8 @@ public class Player : MonoBehaviour
         {
             _leftEngine.SetActive(true);
         }
+
+        _uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
         {

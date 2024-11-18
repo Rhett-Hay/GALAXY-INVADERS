@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text _gameOverText;
     [SerializeField] private TMPro.TMP_Text _restartLevel;
 
+    [SerializeField] private Slider _thrusterSlider;
+    
     private GameManager _gameManager;
 
     // Start is called before the first frame update
@@ -20,6 +22,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "SCORE: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _gameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        //_boostSlider.value = 0f;
 
         if (_gameManager == null)
         {
@@ -30,7 +33,7 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int playerScore)
     {
         _scoreText.text = "SCORE: " + playerScore.ToString();
-    }  
+    }
 
     public void UpdateLives(int currentLives)
     {
@@ -61,3 +64,4 @@ public class UIManager : MonoBehaviour
         }
     }
 }
+    
