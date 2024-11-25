@@ -70,12 +70,12 @@ public class Enemy : MonoBehaviour
             _fireRate = Random.Range(_minFireRate, _maxFireRate);
             _canFire = Time.time + _fireRate;
 
-            GameObject enemyLaser = Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
-            Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
+            _enemyLaser = Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
+            Laser[] lasers = _enemyLaser.GetComponentsInChildren<Laser>();
 
             for (int i = 0; i < lasers.Length; i++)
             {
-                lasers[i].AssignEnemyLaser();
+                lasers[i].AssignEnemyLaser(true);
             }
 
         }

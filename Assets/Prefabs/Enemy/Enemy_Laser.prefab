@@ -46,6 +46,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right_Laser
       objectReference: {fileID: 0}
+    - target: {fileID: 4173746316730702449, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyLaser
+      objectReference: {fileID: 0}
     - target: {fileID: 7896580624069175600, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -96,11 +101,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3473660916061012819, guid: 51b2c1aaf60de1746b32d60bf6f2898c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4173746316730702449, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4180845988709591151}
   m_SourcePrefab: {fileID: 100100000, guid: 51b2c1aaf60de1746b32d60bf6f2898c, type: 3}
+--- !u!1 &1408982601499404780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4173746316730702449, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3053887083803833245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4180845988709591151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408982601499404780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b96cd7bdefa8247befd24343ec3248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8
 --- !u!4 &5185855534588746413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7896580624069175600, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
@@ -119,6 +148,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left_Laser
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173746316730702449, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyLaser
       objectReference: {fileID: 0}
     - target: {fileID: 7896580624069175600, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
         type: 3}
@@ -170,10 +204,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3473660916061012819, guid: 51b2c1aaf60de1746b32d60bf6f2898c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4173746316730702449, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1468420680455333743}
   m_SourcePrefab: {fileID: 100100000, guid: 51b2c1aaf60de1746b32d60bf6f2898c, type: 3}
 --- !u!4 &1486729990973717511 stripped
 Transform:
@@ -181,3 +220,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8734633834979022135}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4673477578669707078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4173746316730702449, guid: 51b2c1aaf60de1746b32d60bf6f2898c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8734633834979022135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1468420680455333743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673477578669707078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b96cd7bdefa8247befd24343ec3248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8

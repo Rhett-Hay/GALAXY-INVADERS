@@ -1818,18 +1818,18 @@ MonoBehaviour:
   _score: 0
   _uiManager: {fileID: 116638578}
   _maxBoundary: -5
-  _shieldPrefab: {fileID: 1559452397}
   _tripleShotPrefab: {fileID: 6145675626078897238, guid: fc2b071eb14c4c84d953e9aba25e7429,
     type: 3}
-  _leftEngine: {fileID: 1030072559}
-  _rightEngine: {fileID: 965371174}
   _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _playerExplosionPreb: {fileID: 4240024798007160167, guid: b6098aec9b511124aa6c3e504b64f1d3,
     type: 3}
+  _leftEngine: {fileID: 1030072559}
+  _rightEngine: {fileID: 965371174}
   _thrusterDuration: 5
   _thrusterCoolDown: 5
   _thrusterSlider: {fileID: 485853914}
   _currentSpeed: 0
+  _shieldPrefab: {fileID: 1559452397}
 --- !u!212 &1584299802
 SpriteRenderer:
   m_ObjectHideFlags: 0

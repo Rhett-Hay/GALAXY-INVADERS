@@ -15,20 +15,18 @@ public class Player : MonoBehaviour
     [SerializeField] private int _score;
     [SerializeField] private UIManager _uiManager;
     [SerializeField] private float _maxBoundary;
-
     private SpawnManager _spawnManager;
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
-    private bool _isShieldActive = false;
-    [SerializeField] private GameObject _shieldPrefab;
     [SerializeField] GameObject _tripleShotPrefab;
-    private bool _fireLaser = true;
-    [SerializeField] private GameObject _leftEngine;
-    [SerializeField] private GameObject _rightEngine;
+    private bool _fireLaser = true;   
     [SerializeField] AudioClip _laserSoundClip;
     private AudioSource _audioSource;
     [SerializeField] GameObject _playerExplosionPreb;
+    
 
+    [SerializeField] private GameObject _leftEngine;
+    [SerializeField] private GameObject _rightEngine;
     [SerializeField] private float _thrusterDuration = 5.0f;
     [SerializeField] private float _thrusterCoolDown = 5f;
     [SerializeField] private Slider _thrusterSlider;
@@ -37,6 +35,14 @@ public class Player : MonoBehaviour
     private bool _isThrusterActive = false;
     private bool _onCoolDown = false;
     [SerializeField] private float _currentSpeed;
+    private bool _shieldHit;
+
+    [SerializeField] private GameObject _shieldPrefab;
+    private bool _isShieldActive = false;
+    private SpriteRenderer _shieldRenderer;
+    private int _shieldStrength = 3;
+    private Color[] _shieldColors = { Color.red, Color.yellow, Color.white };
+
     
 
     // Start is called before the first frame update
@@ -46,6 +52,9 @@ public class Player : MonoBehaviour
         _thrusterTimer = _thrusterDuration;
         _thrusterSlider.maxValue = _thrusterDuration;
         _thrusterSlider.value = _thrusterDuration;
+
+        _shieldRenderer = _shieldPrefab.GetComponent<SpriteRenderer>();
+        _shieldPrefab.SetActive(false);
 
         transform.position = new Vector3(0, -3, 0);
 
@@ -228,8 +237,31 @@ public class Player : MonoBehaviour
     public void ShieldActive()
     {
         _isShieldActive = true;
+        _shieldStrength = 3;
+        UpdateShieldColor();
         _shieldPrefab.SetActive(true);
         StartCoroutine(ShieldPowerDownRoutine());
+    }
+
+    public void ShieldHit()
+    {
+        _shieldStrength--;
+        UpdateShieldColor();
+
+        if (_shieldStrength <= 0)
+        {
+            _isShieldActive = false;
+            _shieldPrefab.SetActive(false);
+            _shieldStrength = 0;
+        }
+    }
+
+    private void UpdateShieldColor()
+    {
+        if (_shieldStrength > 0 && _shieldStrength <= _shieldColors.Length)
+        {
+            _shieldRenderer.color = _shieldColors[_shieldStrength - 1];
+        }
     }
 
     IEnumerator ShieldPowerDownRoutine()
@@ -237,6 +269,19 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _isShieldActive = false;
         _shieldPrefab.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("EnemyLaser") || other.CompareTag("Enemy"))
+        {
+            if (_isShieldActive)
+            {
+                ShieldHit();
+            }
+            
+            Destroy(other.gameObject);
+        }
     }
 
     public void AddScore(int points)

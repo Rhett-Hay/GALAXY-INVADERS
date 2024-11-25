@@ -48,9 +48,9 @@ public class Laser : MonoBehaviour
         }
     }
 
-    public void AssignEnemyLaser()
+    public void AssignEnemyLaser(bool enemyLaser)
     {
-        _isEnemyLaser = true;
+        _isEnemyLaser = enemyLaser;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
