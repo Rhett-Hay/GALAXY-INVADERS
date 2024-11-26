@@ -43,11 +43,15 @@ public class Player : MonoBehaviour
     private int _shieldStrength = 3;
     private Color[] _shieldColors = { Color.red, Color.yellow, Color.white };
 
-    
+    [SerializeField] private int _maxAmmo = 15;
+    private int _currentAmmo;
 
     // Start is called before the first frame update
     void Start()
     {
+        _currentAmmo = _maxAmmo;
+        _uiManager.UpdateAmmo(_currentAmmo, _maxAmmo);
+
         _currentSpeed = _speed;
         _thrusterTimer = _thrusterDuration;
         _thrusterSlider.maxValue = _thrusterDuration;
@@ -85,7 +89,7 @@ public class Player : MonoBehaviour
         CalculateMovement();
         CalculateBoost();
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _currentAmmo > 0)
         {
             FireLaser();
         }      
@@ -166,10 +170,14 @@ public class Player : MonoBehaviour
             {
                 TripleShotActive();
                 Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+                _currentAmmo -= 3;
+                _uiManager.UpdateAmmo(_currentAmmo, _maxAmmo);
             }
             else
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+                _currentAmmo--;
+                _uiManager.UpdateAmmo(_currentAmmo, _maxAmmo);
             }
 
             _audioSource.clip = _laserSoundClip;

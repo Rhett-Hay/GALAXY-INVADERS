@@ -12,9 +12,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text _gameOverText;
     [SerializeField] private TMPro.TMP_Text _restartLevel;
 
-    [SerializeField] private Slider _thrusterSlider;
-    
+    [SerializeField] private Slider _thrusterSlider;  
     private GameManager _gameManager;
+
+    [SerializeField] private TMPro.TMP_Text _ammoText;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,11 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Game Manager is NULL!");
         }
+    }
+
+    public void UpdateAmmo(int currentAmmo, int maxAmmo)
+    {
+        _ammoText.text = "AMMO: " + currentAmmo + " / " + maxAmmo;
     }
 
     public void UpdateScore(int playerScore)
