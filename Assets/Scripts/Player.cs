@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int _maxAmmo = 15;
     private int _currentAmmo;
+    private bool _isAmmoActive;
 
     // Start is called before the first frame update
     void Start()
@@ -180,6 +181,12 @@ public class Player : MonoBehaviour
                 _uiManager.UpdateAmmo(_currentAmmo, _maxAmmo);
             }
 
+            if (_currentAmmo <= 0)
+            {
+                _currentAmmo = 0;
+                _uiManager.UpdateAmmo(0, _maxAmmo);
+            }
+
             _audioSource.clip = _laserSoundClip;
             _audioSource.Play();
         }        
@@ -193,6 +200,7 @@ public class Player : MonoBehaviour
         }
 
         _lives -= 1;
+        _uiManager.UpdateLives(_lives);
 
         if (_lives == 2)
         {
@@ -203,10 +211,11 @@ public class Player : MonoBehaviour
             _leftEngine.SetActive(true);
         }
 
-        _uiManager.UpdateLives(_lives);
+        //_uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
         {
+            _lives = 0;
             _spawnManager.OnPlayerDeath();
             Instantiate(_playerExplosionPreb, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
@@ -240,6 +249,20 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _isSpeedBoostActive = false;
         _speed /= _speedMultiplier;
+    }
+
+    public void  AmmoBoostActive()
+    {
+        _isAmmoActive = true;
+        _currentAmmo = _maxAmmo;
+        _uiManager.UpdateAmmo(_currentAmmo, _maxAmmo);
+        StartCoroutine(AmmoBoostPowerDownRoutine());
+    }
+
+    IEnumerator AmmoBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(_currentAmmo);
+        _isAmmoActive = false;
     }
 
     public void ShieldActive()

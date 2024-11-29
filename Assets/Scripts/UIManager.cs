@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     {
         _livesImage.sprite = _liveSprites[currentLives];
 
-        if (currentLives == 0)
+        if (currentLives <= 0)
         {
             GameOverSequence();
         }
