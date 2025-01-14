@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private float _fireRate = 0.3f;
-    [SerializeField] private int _lives = 3;
+    [SerializeField] private int _maxLives = 3;
+    private int _currentLives;
     [SerializeField] private int _score;
     [SerializeField] private UIManager _uiManager;
     [SerializeField] private float _maxBoundary;
@@ -47,6 +48,8 @@ public class Player : MonoBehaviour
     private int _currentAmmo;
     private bool _isAmmoActive;
 
+    private bool _isHealthBoostActive = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,8 @@ public class Player : MonoBehaviour
         _shieldPrefab.SetActive(false);
 
         transform.position = new Vector3(0, -3, 0);
+
+        _currentLives = _maxLives;
 
         _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
 
@@ -199,27 +204,56 @@ public class Player : MonoBehaviour
             return;
         }
 
-        _lives -= 1;
-        _uiManager.UpdateLives(_lives);
-
-        if (_lives == 2)
+        _currentLives -= 1;
+  
+        if (_currentLives == 2)
         {
             _rightEngine.SetActive(true);
         }
-        else if (_lives == 1)
+        else if (_currentLives == 1)
         {
             _leftEngine.SetActive(true);
         }
 
-        //_uiManager.UpdateLives(_lives);
-
-        if (_lives < 1)
+        if (_currentLives < 1)
         {
-            _lives = 0;
+            _currentLives = 0;
             _spawnManager.OnPlayerDeath();
             Instantiate(_playerExplosionPreb, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
+
+        _uiManager.UpdateLives(_currentLives);
+    }
+
+    public void HealthBoostActive()
+    {
+        _isHealthBoostActive = true;
+        _currentLives++;
+        if (_currentLives > _maxLives)
+        {
+            _currentLives = _maxLives;
+        }
+        _uiManager.UpdateLives(_currentLives);
+
+        if (_currentLives == 2)
+        {
+            _leftEngine.SetActive(false);
+        }
+        else if (_currentLives >= 3)
+        {
+            _currentLives = 3;
+            _uiManager.UpdateLives(_currentLives);
+            _rightEngine.SetActive(false);
+        }
+
+        StartCoroutine(HealthPowerDownRoutine());
+    }
+
+    IEnumerator HealthPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isHealthBoostActive = false;
     }
 
     public void TripleShotActive()

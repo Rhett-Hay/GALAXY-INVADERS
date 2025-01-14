@@ -665,6 +665,7 @@ MonoBehaviour:
   - {fileID: 9193530918560242177, guid: 2bec52422de47884e91c46fe3c113535, type: 3}
   - {fileID: 2350469959441278975, guid: e5170aa01842d3441ae8e847ed40d83a, type: 3}
   - {fileID: 3541284822691494572, guid: 140f5f5709b62704ba36890c6a3e72a4, type: 3}
+  - {fileID: 2371531167406656726, guid: d47bb781c2526d14e80effa5ab7db3bc, type: 3}
 --- !u!1 &745319831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +1952,7 @@ MonoBehaviour:
     type: 3}
   _canFire: -1
   _fireRate: 0.15
-  _lives: 3
+  _maxLives: 3
   _score: 0
   _uiManager: {fileID: 116638578}
   _maxBoundary: -5
