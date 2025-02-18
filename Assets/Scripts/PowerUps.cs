@@ -11,6 +11,8 @@ public class PowerUps : MonoBehaviour
     [SerializeField] private AudioClip _powerClip;
     [SerializeField] private float _volume;
 
+    //[SerializeField] private int _specialPowerupID;
+
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -49,12 +51,15 @@ public class PowerUps : MonoBehaviour
                     case 4:
                         player.HealthBoostActive();
                         break;
+                    case 5:
+                        player.TripleShot2Active();
+                        break;
                     default:
                         Debug.Log("Default value!");
                         break;
                 }
             }
-
+            
             Destroy(this.gameObject);
         }
     }

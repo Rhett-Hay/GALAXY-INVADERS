@@ -666,6 +666,11 @@ MonoBehaviour:
   - {fileID: 2350469959441278975, guid: e5170aa01842d3441ae8e847ed40d83a, type: 3}
   - {fileID: 3541284822691494572, guid: 140f5f5709b62704ba36890c6a3e72a4, type: 3}
   - {fileID: 2371531167406656726, guid: d47bb781c2526d14e80effa5ab7db3bc, type: 3}
+  _specialPowerupPrefabs:
+  - {fileID: 7949743417822062094, guid: 0c23c3852ebdb2846a81294df8805a64, type: 3}
+  _minRandomTime: 3
+  _maxRandomTime: 8
+  _fixedSpawnTime: 15
 --- !u!1 &745319831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +1974,8 @@ MonoBehaviour:
   _currentSpeed: 0
   _shieldPrefab: {fileID: 1559452397}
   _maxAmmo: 15
+  _specialShotPrefab: {fileID: 530895500734147782, guid: 2cad897d8704de34483c092e34ee8d66,
+    type: 3}
 --- !u!212 &1584299802
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -11,15 +13,27 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning;
 
+    [SerializeField] private GameObject[] _specialPowerupPrefabs;
+    [SerializeField] private float _minRandomTime;
+    [SerializeField] private float _maxRandomTime;
+    [SerializeField] private float _fixedSpawnTime;
+    private float _randomX;
+    private Vector3 _posToSpawn;
+
+    private void SpawnRange()
+    {
+        _randomX = Random.Range(-_Xpos, _Xpos);
+        _posToSpawn = new Vector3(_randomX, transform.position.y, 0);
+    }
+
     IEnumerator SpawnEnemyRoutine()
     {
         yield return new WaitForSeconds(2f);
 
         while (_stopSpawning == false)
         {
-            float randomX = Random.Range(-_Xpos, _Xpos);
-            Vector3 posToSpawn = new Vector3(randomX, transform.position.y, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
+            SpawnRange();
+            GameObject newEnemy = Instantiate(_enemyPrefab, _posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5.0f);
         }
@@ -31,12 +45,31 @@ public class SpawnManager : MonoBehaviour
 
         while (_stopSpawning == false)
         {
-            float randomX = Random.Range(-_Xpos, _Xpos);
-            Vector3 posToSpawn = new Vector3(randomX, transform.position.y, 0);
-            int randomPowerup = Random.Range(0, 5);
-            Instantiate(_powerupPrefabs[randomPowerup], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(3f, 8f));
+            SpawnRange();
+            float waitTime = Random.Range(_minRandomTime, _maxRandomTime);
+            yield return new WaitForSeconds(waitTime);
+            SpawnPowerup(_powerupPrefabs);
         }
+    }
+
+    IEnumerator SpawnSpecialPowerupRoutine()
+    {
+        yield return new WaitForSeconds(3f);
+
+        while (_stopSpawning == false)
+        {
+            SpawnRange();          
+            yield return new WaitForSeconds(_fixedSpawnTime);
+            SpawnPowerup(_specialPowerupPrefabs);
+        }
+    }
+
+    private void SpawnPowerup(GameObject[] powerupArray)
+    {
+        if (powerupArray.Length == 0) return;
+
+        GameObject powerupToSpawn = powerupArray[Random.Range(0, powerupArray.Length)];
+        GameObject newSpawnPowerup = Instantiate(powerupToSpawn, _posToSpawn, Quaternion.identity);
     }
 
     public void OnPlayerDeath()
@@ -48,5 +81,6 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
+        StartCoroutine(SpawnSpecialPowerupRoutine());
     }
 }

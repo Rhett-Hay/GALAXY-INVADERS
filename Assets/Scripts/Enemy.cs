@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _enemyLaserPrefab;
     private GameObject _enemyLaser;
 
+    [SerializeField] private GameObject _specialLaserPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
