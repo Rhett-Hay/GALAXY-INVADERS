@@ -50,8 +50,8 @@ public class Player : MonoBehaviour
 
     private bool _isHealthBoostActive = false;
 
-    [SerializeField] private GameObject _specialShotPrefab;
-    private bool _isSpecialShotActive = false;
+    [SerializeField] private GameObject _tripleShot2Prefab;
+    private bool _isTripleShot2Active = false;
     
     // Start is called before the first frame update
     void Start()
@@ -175,10 +175,10 @@ public class Player : MonoBehaviour
 
         if (_canFire > Time.time && _fireLaser)
         {
-            if (_isSpecialShotActive)
+            if (_isTripleShot2Active)
             {
                 TripleShot2Active();
-                Instantiate(_specialShotPrefab, transform.position, Quaternion.identity);
+                Instantiate(_tripleShot2Prefab, transform.position, Quaternion.identity);
                 _currentAmmo -= 3;
                 _uiManager.UpdateAmmo(_currentAmmo, _maxAmmo);
                 Debug.Log("Special shot active!");
@@ -269,7 +269,7 @@ public class Player : MonoBehaviour
 
     public void TripleShot2Active()
     {
-        _isSpecialShotActive = true;
+        _isTripleShot2Active = true;
         StartCoroutine(TripleShot2PowerDownCoroutine());
         Debug.Log("Special shot active is true!");
     }
@@ -277,7 +277,7 @@ public class Player : MonoBehaviour
     IEnumerator TripleShot2PowerDownCoroutine()
     {
         yield return new WaitForSeconds(5f);
-        _isSpecialShotActive = false;
+        _isTripleShot2Active = false;
     }
 
     public void TripleShotActive()

@@ -11,8 +11,6 @@ public class PowerUps : MonoBehaviour
     [SerializeField] private AudioClip _powerClip;
     [SerializeField] private float _volume;
 
-    //[SerializeField] private int _specialPowerupID;
-
     // Update is called once per frame
     private void FixedUpdate()
     {
