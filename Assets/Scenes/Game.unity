@@ -1974,8 +1974,10 @@ MonoBehaviour:
   _currentSpeed: 0
   _shieldPrefab: {fileID: 1559452397}
   _maxAmmo: 15
-  _specialShotPrefab: {fileID: 530895500734147782, guid: 2cad897d8704de34483c092e34ee8d66,
+  _tripleShot2Prefab: {fileID: 530895500734147782, guid: 2cad897d8704de34483c092e34ee8d66,
     type: 3}
+  _shakeDuration: 0.2
+  _shakeIntensity: 0.3
 --- !u!212 &1584299802
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2477,6 +2479,7 @@ GameObject:
   - component: {fileID: 2030778434}
   - component: {fileID: 2030778433}
   - component: {fileID: 2030778432}
+  - component: {fileID: 2030778436}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2602,6 +2605,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2030778436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030778431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c38d4c165ab4d45bc98c6e37bd8c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shakeDuration: 0.2
+  _shakeMagnitude: 0.3
 --- !u!1001 &1300575201663063430
 PrefabInstance:
   m_ObjectHideFlags: 0

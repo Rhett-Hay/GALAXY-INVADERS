@@ -52,6 +52,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject _tripleShot2Prefab;
     private bool _isTripleShot2Active = false;
+
+    private CameraShake _cameraShake;
+    [SerializeField] private float _shakeDuration = 0.2f;
+    [SerializeField] private float _shakeIntensity = 0.3f;
     
     // Start is called before the first frame update
     void Start()
@@ -72,6 +76,11 @@ public class Player : MonoBehaviour
         _currentLives = _maxLives;
 
         _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
+
+        if (_cameraShake == null)
+        {
+            _cameraShake = Camera.main.GetComponent<CameraShake>();
+        }
 
         if (_spawnManager == null)
         {
@@ -367,8 +376,11 @@ public class Player : MonoBehaviour
             if (_isShieldActive)
             {
                 ShieldHit();
+                return;
             }
-            
+
+            _cameraShake.StartShake(_shakeDuration, _shakeIntensity);
+
             Destroy(other.gameObject);
         }
     }
